@@ -9,10 +9,17 @@
     "proxy"
   ],
   "scripts": {
-<<<<<<< HEAD
+ codex/fix-missing-@ljharb/tsconfig-file-ghq8c5
     "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs"
-=======
+  },
+  "devDependencies": {
+    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig"
+
+ HEAD
+    "dev": "pnpm -r --parallel dev",
+    "postinstall": "node scripts/install-vendored-tsconfig.cjs"
+
     "dev": "pnpm -r --parallel dev"
   },
   "devDependencies": {
@@ -22,6 +29,7 @@
     "grunt": "^1.6.1",
     "grunt-contrib-jshint": "^3.2.0"
  main
->>>>>>> main
+ main
+ main
   }
 }
