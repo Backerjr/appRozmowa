@@ -10,5 +10,8 @@
   ],
   "scripts": {
     "dev": "pnpm -r --parallel dev"
+  },
+  "devDependencies": {
+    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig"
   }
 }
