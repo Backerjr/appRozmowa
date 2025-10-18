@@ -10,5 +10,8 @@
   ],
   "scripts": {
     "dev": "pnpm -r --parallel dev"
+  },
+  "devDependencies": {
+    "grunt": "^1.6.1"
   }
 }
