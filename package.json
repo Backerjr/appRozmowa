@@ -12,6 +12,7 @@
     "dev": "pnpm -r --parallel dev"
   },
   "devDependencies": {
-    "grunt": "^1.6.1"
+    "grunt": "^1.6.1",
+    "grunt-contrib-jshint": "^3.2.0"
   }
 }
