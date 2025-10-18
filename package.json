@@ -12,6 +12,11 @@
     "dev": "pnpm -r --parallel dev"
   },
   "devDependencies": {
+ codex/fix-missing-@ljharb/tsconfig-file-ot9cf2
     "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig"
+
+    "grunt": "^1.6.1",
+    "grunt-contrib-jshint": "^3.2.0"
+ main
   }
 }
