@@ -1,17 +1,17 @@
 {
-  "name": "polyglot-starter"
+  "name": "polyglot-starter",
   "private": true,
   "version": "0.1.0",
-  "packageManager": "pnpm@9.0.0"
+  "packageManager": "pnpm@9.0.0",
   "workspaces": [
-    "api"
-    "web"
+    "api",
+    "web",
     "proxy"
-  ]
+  ],
   "scripts": {
-    "dev": "pnpm -r --parallel dev"
+    "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs"
-  }
+  },
   "devDependencies": {
     "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig"
   }
