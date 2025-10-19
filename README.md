@@ -25,7 +25,10 @@ docker compose up -d
 pnpm -r dev
 ```
 
-Quick preflight: run `npm run check:repo` to catch merge conflicts and malformed package.json files before pushing.
+Quick preflight: run one of the following to catch merge conflicts and malformed package.json files before pushing:
+
+- Preferred (pnpm workspace): `pnpm -w run check:repo`
+- Fallback (npm): `npm run check:repo`
 
 - Web: http://localhost:3000
 - API: http://localhost:4000
