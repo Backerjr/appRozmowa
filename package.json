@@ -11,10 +11,12 @@
   "scripts": {
     "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs",
-    "check:repo": "bash scripts/checks.sh"
+    "check:repo": "bash scripts/checks.sh",
+    "prepare": "husky"
   },
   "devDependencies": {
     "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
-    "grunt-contrib-jshint": "^3.2.0"
+    "grunt-contrib-jshint": "^3.2.0",
+    "husky": "^9.0.11"
   }
 }

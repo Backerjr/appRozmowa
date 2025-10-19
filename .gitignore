@@ -7,9 +7,11 @@ node_modules/*
 !node_modules/@ljharb/
 !node_modules/@ljharb/tsconfig~ee81a13
 !node_modules/@ljharb/**
+# but ignore artifacts from other package managers
+node_modules/@ljharb/.ignored_tsconfig/
 
 # Package manager lockfiles
-pnpm-lock.yaml
+# pnpm-lock.yaml should be committed for frozen lockfile checks
 package-lock.json
 yarn.lock
 
