@@ -8,6 +8,11 @@
       "jsx": true
     }
   },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
+  },
   "env": {
     "browser": true,
     "node": true,
@@ -19,5 +24,13 @@
     "semi": ["error", "always"],
     "quotes": ["error", "single"],
     "react/react-in-jsx-scope": "off"
-  }
+  },
+  "overrides": [
+    {
+      "files": ["*.jsx","*.js"],
+      "parserOptions": {
+        "ecmaFeatures": { "jsx": true }
+      }
+    }
+  ]
 }
