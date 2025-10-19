@@ -1,17 +1,17 @@
 {
-  "name": "@polyglot/api",
-  "private": true,
-  "type": "module",
-  "version": "0.1.0",
+  "name": "@polyglot/api"
+  "private": true
+  "type": "module"
+  "version": "0.1.0"
   "scripts": {
     "dev": "node --watch src/main.js"
-  },
+  }
   "dependencies": {
-    "express": "^4.19.0",
+    "express": "^4.19.0"
     "cors": "^2.8.5",
-    "morgan": "^1.10.0",
-    "dotenv": "^16.4.0",
-    "uuid": "^9.0.1",
+    "morgan": "^1.10.0"
+    "dotenv": "^16.4.0"
+    "uuid": "^9.0.1"
     "pg": "^8.11.5"
   }
 }
