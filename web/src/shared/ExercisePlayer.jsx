@@ -37,7 +37,7 @@ function TapOrder({ ex, onNext }){
   </div>;
 }
 
-function ListenType({ ex, onNext }){
+function ListenType({ onNext }){
   const [text,setText]=useState('');
   const { partial, final, start, stop } = useAsr('ws://localhost:4100/ws/asr');
   return <div>
@@ -75,6 +75,5 @@ TapOrder.propTypes = {
 };
 
 ListenType.propTypes = {
-  ex: PropTypes.object.isRequired,
   onNext: PropTypes.func,
 };
