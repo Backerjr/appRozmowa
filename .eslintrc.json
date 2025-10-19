@@ -7,6 +7,10 @@
     "ecmaFeatures": {
       "jsx": true
     }
+    ,
+    "babelOptions": {
+      "presets": ["@babel/preset-react"]
+    }
   },
   "settings": {
     "react": {
@@ -33,7 +37,8 @@
         "requireConfigFile": false,
         "ecmaVersion": 2020,
         "sourceType": "module",
-        "ecmaFeatures": { "jsx": true }
+        "ecmaFeatures": { "jsx": true },
+        "babelOptions": { "presets": ["@babel/preset-react"] }
       }
     }
   ]
