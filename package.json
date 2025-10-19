@@ -13,6 +13,7 @@
     "postinstall": "node scripts/install-vendored-tsconfig.cjs",
     "check:repo": "bash scripts/checks.sh",
  copilot/vscode1760857565276
+```remove
     "prepare": "husky"
   },
   "devDependencies": {
