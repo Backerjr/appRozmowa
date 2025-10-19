@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react'
-import { ExercisePlayer } from '../shared/ExercisePlayer.jsx'
+import React, { useState } from 'react';
+import { ExercisePlayer } from '../shared/ExercisePlayer.jsx';
 
 export function Lesson({ lessonId }){
   // Hardcoded exercises for demo
@@ -14,5 +14,5 @@ export function Lesson({ lessonId }){
   return <div>
     <h2>Lesson demo</h2>
     <ExercisePlayer exercise={ex} onNext={()=> setIdx(i=> Math.min(i+1, exercises.length-1))} />
-  </div>
+  </div>;
 }

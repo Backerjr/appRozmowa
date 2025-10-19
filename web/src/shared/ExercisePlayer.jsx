@@ -1,6 +1,6 @@
 
-import React, { useState } from 'react'
-import { useAsr } from '../shared/useAsr.js'
+import React, { useState } from 'react';
+import { useAsr } from '../shared/useAsr.js';
 
 export function ExercisePlayer({ exercise, onNext }){
   if(!exercise) return null;
@@ -12,7 +12,7 @@ export function ExercisePlayer({ exercise, onNext }){
       {exercise.type==='tap_order' && <TapOrder ex={exercise} onNext={onNext} />}
       {exercise.type==='listen_type' && <ListenType ex={exercise} onNext={onNext} />}
     </div>
-  )
+  );
 }
 
 function MCQ({ ex, onNext }){
@@ -22,7 +22,7 @@ function MCQ({ ex, onNext }){
     {ex.options.map(o=> <button key={o} onClick={()=>setSel(o)} style={{marginRight:8}}>{o}</button>)}
     {sel && <div style={{marginTop:8}}>{correct?'✅':'❌'} {correct?'Good!':'Try again'}</div>}
     {correct && <button onClick={onNext} style={{marginTop:8}}>Next</button>}
-  </div>
+  </div>;
 }
 
 function TapOrder({ ex, onNext }){
@@ -33,7 +33,7 @@ function TapOrder({ ex, onNext }){
     <div style={{marginBottom:6}}>{ex.tiles.map(t=> <button key={t} onClick={()=>pick(t)} style={{marginRight:6}}>{t}</button>)}</div>
     <div>Chosen: {picked.join(' ')}</div>
     {correct && <div style={{marginTop:8}}>✅ Correct <button onClick={onNext} style={{marginLeft:8}}>Next</button></div>}
-  </div>
+  </div>;
 }
 
 function ListenType({ ex, onNext }){
@@ -48,5 +48,5 @@ function ListenType({ ex, onNext }){
       <button onClick={stop}>🛑 Stop</button>
       <button onClick={onNext} style={{marginLeft:8}}>Next</button>
     </div>
-  </div>
+  </div>;
 }
