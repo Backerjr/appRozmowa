@@ -1,0 +1,23 @@
+# Dependency directories
+node_modules/
+
+# Package manager lockfiles
+pnpm-lock.yaml
+package-lock.json
+yarn.lock
+
+# Build artefacts
+build/
+dist/
+.next/
+out/
+coverage/
+.tmp/
+tmp/
+
+# Environment files
+.env
+.env.*
+
+# Misc
+.DS_Store
