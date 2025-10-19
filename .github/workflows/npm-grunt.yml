@@ -22,7 +22,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
 
-    - name: Build
+    - name: Build (use pnpm)
       run: |
-        npm install
-        grunt
+        corepack enable
+        pnpm install
+        git add pnpm-lock.yaml
+        git commit -m "Add pnpm lockfile and remove package-lock.json"
+        pnpm -w exec grunt

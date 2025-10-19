@@ -14,8 +14,10 @@ Tooling: **pnpm**, Node 20+, **email/password auth** in dev, **Azure Speech** re
 - Node 20+, pnpm 9+, Docker Desktop
 - macOS/Linux recommended
 
-## Quickstart
+## Quickstart (use pnpm)
 ```bash
+# enable corepack if needed (recommended on CI)
+corepack enable
 pnpm install
 cp api/.env.example api/.env
 cp proxy/.env.example proxy/.env
@@ -33,5 +35,6 @@ Quick preflight: run `npm run check:repo` to catch merge conflicts and malformed
 - The speech proxy is a **stub** producing fake transcripts so you can build UI & flow offline.
 - Replace the proxy with Azure Speech when ready (env keys in `proxy/.env`).
 
-## Workspaces
+## Workspaces and CI
 - Root `package.json` defines pnpm workspaces for `api`, `web`, and `proxy`.
+- This repo uses pnpm in CI. If you see errors about `npm ci` or missing lockfiles, run `pnpm install` (or update workflows to use pnpm). The GitHub Actions workflow `/.github/workflows/npm-grunt.yml` has been updated to run pnpm.
