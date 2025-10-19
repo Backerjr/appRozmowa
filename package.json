@@ -9,10 +9,20 @@
     "proxy"
   ],
   "scripts": {
+<<<<<<< HEAD
     "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs"
   },
   "devDependencies": {
     "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig"
+=======
+    "dev": "pnpm -r --parallel dev"
+  },
+  "devDependencies": {
+    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig"
+
+    "grunt-contrib-jshint": "^3.2.0"
+ main
+>>>>>>> ee81a13 (save and)
   }
 }
