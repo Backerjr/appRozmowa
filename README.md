@@ -40,4 +40,4 @@ Quick preflight: run one of the following to catch merge conflicts and malformed
 
 ## Workspaces and CI
 - Root `package.json` defines pnpm workspaces for `api`, `web`, and `proxy`.
-- This repo uses pnpm in CI. If you see errors about `npm ci` or missing lockfiles, run `pnpm install` (or update workflows to use pnpm). The GitHub Actions workflow `/.github/workflows/npm-grunt.yml` has been updated to run pnpm.
+-- This repo uses pnpm in CI. If you see errors about `npm ci` or missing lockfiles, run `pnpm install` (or update workflows to use pnpm). See `.github/workflows/lint.yml` and `.github/workflows/lockfile-check.yml` for lint and lockfile checks.
