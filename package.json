@@ -10,7 +10,8 @@
   ],
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "postinstall": "node scripts/install-vendored-tsconfig.cjs"
+    "postinstall": "node scripts/install-vendored-tsconfig.cjs",
+    "check:repo": "bash scripts/checks.sh"
   },
   "devDependencies": {
     "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",

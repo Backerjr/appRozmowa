@@ -23,6 +23,8 @@ docker compose up -d
 pnpm -r dev
 ```
 
+Quick preflight: run `npm run check:repo` to catch merge conflicts and malformed package.json files before pushing.
+
 - Web: http://localhost:3000
 - API: http://localhost:4000
 - Proxy (WS): ws://localhost:4100/ws/asr
