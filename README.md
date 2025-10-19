@@ -1,4 +1,3 @@
-
 # Polyglot Starter (Web PWA + API + Speech Proxy)
 
 Monorepo starter for the **Polish→English Duolingo-like** app.
@@ -35,3 +34,11 @@ Quick preflight: run `npm run check:repo` to catch merge conflicts and malformed
 
 ## Workspaces
 - Root `package.json` defines pnpm workspaces for `api`, `web`, and `proxy`.
+
+- name: Show repo location and package.json
+  run: |
+    pwd
+    ls -la
+    echo '--- package.json ---'
+    sed -n '1,200p' package.json || true
+    echo '--- end ---'
