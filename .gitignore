@@ -9,7 +9,7 @@ node_modules/*
 !node_modules/@ljharb/**
 
 # Package manager lockfiles
-pnpm-lock.yaml
+# Keep npm/yarn lockfiles ignored; allow pnpm lockfile in repo
 package-lock.json
 yarn.lock
 

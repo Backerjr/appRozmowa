@@ -1,0 +1,26 @@
+name: Lockfile guard
+
+on:
+  push:
+    branches: ["main"]
+  pull_request:
+    branches: ["main"]
+
+jobs:
+  lockfile-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Ensure pnpm lockfile exists and package-lock.json is not present
+        run: |
+          set -euo pipefail
+          if [ -f package-lock.json ]; then
+            echo "ERROR: package-lock.json exists. This repository uses pnpm. Please remove package-lock.json and use pnpm-lock.yaml.";
+            ls -la package-lock.json || true
+            exit 1
+          fi
+          if [ ! -f pnpm-lock.yaml ]; then
+            echo "ERROR: pnpm-lock.yaml is missing. Please run 'corepack enable && pnpm install' locally and commit pnpm-lock.yaml.";
+            exit 1
+          fi
+          echo "Lockfile check passed."
