@@ -48,3 +48,22 @@ jobs:
         run: |
           set -euo pipefail
           node -e "const fs=require('fs'); const files=['package.json','app/package.json','web/package.json','proxy/package.json']; let ok=true; files.forEach(f=>{ try{ JSON.parse(fs.readFileSync(f,'utf8')); console.log(f+' ok'); }catch(e){ console.error(f+' ERR: '+e.message); ok=false; }}); if(!ok) process.exit(1);"
+
+  pnpm-frozen:
+    name: Install dependencies with frozen lockfile
+    runs-on: ubuntu-latest
+    needs: [validate-json]
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Install pnpm
+        uses: pnpm/action-setup@v2
+        with:
+          version: 9.0.0
+      - name: Install with frozen lockfile
+        run: pnpm install --frozen-lockfile
