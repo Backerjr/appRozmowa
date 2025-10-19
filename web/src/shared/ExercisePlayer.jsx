@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useAsr } from '../shared/useAsr.js';
 
 export function ExercisePlayer({ exercise, onNext }){
@@ -50,3 +51,30 @@ function ListenType({ ex, onNext }){
     </div>
   </div>;
 }
+
+ExercisePlayer.propTypes = {
+  exercise: PropTypes.shape({
+    id: PropTypes.string,
+    type: PropTypes.string.isRequired,
+    prompt: PropTypes.string,
+    options: PropTypes.array,
+    answer: PropTypes.any,
+    tiles: PropTypes.array,
+  }),
+  onNext: PropTypes.func,
+};
+
+MCQ.propTypes = {
+  ex: PropTypes.object.isRequired,
+  onNext: PropTypes.func,
+};
+
+TapOrder.propTypes = {
+  ex: PropTypes.object.isRequired,
+  onNext: PropTypes.func,
+};
+
+ListenType.propTypes = {
+  ex: PropTypes.object.isRequired,
+  onNext: PropTypes.func,
+};

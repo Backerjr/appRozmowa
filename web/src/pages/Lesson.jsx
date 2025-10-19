@@ -1,5 +1,6 @@
 
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { ExercisePlayer } from '../shared/ExercisePlayer.jsx';
 
 export function Lesson({ lessonId }){
@@ -16,3 +17,7 @@ export function Lesson({ lessonId }){
     <ExercisePlayer exercise={ex} onNext={()=> setIdx(i=> Math.min(i+1, exercises.length-1))} />
   </div>;
 }
+
+Lesson.propTypes = {
+  lessonId: PropTypes.string,
+};
