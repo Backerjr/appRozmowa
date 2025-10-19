@@ -3,7 +3,6 @@
 
 npx --no-install lint-staged
 
- copilot/vscode1760857565276
 
 #!/usr/bin/env sh
 . "$(dirname "$0")/_/husky.sh"
