@@ -12,11 +12,22 @@
     "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs",
     "check:repo": "bash scripts/checks.sh",
+ copilot/vscode1760857565276
     "prepare": "husky"
   },
   "devDependencies": {
     "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
     "grunt-contrib-jshint": "^3.2.0",
     "husky": "^9.0.11"
+
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
+    "grunt": "^1.6.1",
+    "grunt-cli": "^1.5.0",
+    "grunt-contrib-jshint": "^3.2.0",
+    "husky": "^8.0.0"
+ main
   }
 }

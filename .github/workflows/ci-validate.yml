@@ -30,6 +30,16 @@ jobs:
     needs: [conflict-check]
     steps:
       - uses: actions/checkout@v4
+      - name: Diagnostic - Show working directory and package.json
+        run: |
+          echo "=== Current working directory ==="
+          pwd
+          echo ""
+          echo "=== Directory contents ==="
+          ls -la
+          echo ""
+          echo "=== First 200 lines of package.json ==="
+          head -n 200 package.json || echo "package.json not found or error reading file"
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
