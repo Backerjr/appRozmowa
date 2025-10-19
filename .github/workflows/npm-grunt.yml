@@ -16,6 +16,9 @@ jobs:
 
     steps:
     - uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+        clean: true
 
     - name: Show lockfile head
       run: |
@@ -32,6 +35,13 @@ jobs:
         corepack enable
         pnpm install --frozen-lockfile
         pnpm -w exec eslint "**/*.{js,jsx,mjs}" || true
-        # keep npm tasks for legacy targets if present
-        npm ci
-        npx grunt
+
+    - name: Run legacy npm tasks if present
+      run: |
+        if [ -f package-lock.json ]; then
+          echo "package-lock.json found: running npm ci && npx grunt"
+          npm ci
+          npx grunt
+        else
+          echo "No package-lock.json: skipping legacy npm tasks"
+        fi
