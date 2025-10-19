@@ -25,6 +25,11 @@ jobs:
         echo "--- pnpm-lock.yaml head (for debugging) ---"
         sed -n '1,140p' pnpm-lock.yaml || true
 
+    - name: Show lockfile context
+      run: |
+        echo "--- pnpm-lock.yaml context (540..600) ---"
+        sed -n '540,600p' pnpm-lock.yaml || true
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v4
       with:
