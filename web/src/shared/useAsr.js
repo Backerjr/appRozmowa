@@ -1,11 +1,12 @@
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react';
 
 export function useAsr(url){
   const wsRef = useRef(null);
   const [partial,setPartial]=useState('');
   const [final,setFinal]=useState('');
-  const mediaRef = useRef(null);
+  // mediaRef is intentionally unused in this starter. Keep stub for future audio capture.
+  // const mediaRef = useRef(null);
 
   function start(){
     if(wsRef.current) wsRef.current.close();

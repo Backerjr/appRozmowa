@@ -11,7 +11,11 @@ node_modules/*
 node_modules/@ljharb/.ignored_tsconfig/
 
 # Package manager lockfiles
+ fix/root-packagejson
+# Keep npm/yarn lockfiles ignored; allow pnpm lockfile in repo
+
 # pnpm-lock.yaml should be committed for frozen lockfile checks
+ main
 package-lock.json
 yarn.lock
 

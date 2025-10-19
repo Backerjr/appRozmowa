@@ -1,8 +1,9 @@
 
-import React, { useState } from 'react'
-import { ExercisePlayer } from '../shared/ExercisePlayer.jsx'
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
+import { ExercisePlayer } from '../shared/ExercisePlayer.jsx';
 
-export function Lesson({ lessonId }){
+export function Lesson(){
   // Hardcoded exercises for demo
   const exercises = [
     { id:'ex1', type:'mcq', prompt:'Choose the correct article: ___ apple', options:['a','an'], answer:'an', hints_pl:['Przed samogłoską: an.'] },
@@ -14,5 +15,9 @@ export function Lesson({ lessonId }){
   return <div>
     <h2>Lesson demo</h2>
     <ExercisePlayer exercise={ex} onNext={()=> setIdx(i=> Math.min(i+1, exercises.length-1))} />
-  </div>
+  </div>;
 }
+
+Lesson.propTypes = {
+  lessonId: PropTypes.string,
+};
