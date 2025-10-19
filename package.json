@@ -10,7 +10,7 @@
   ],
   "scripts": {
  
- HEAD
+ 
     "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs"
 
@@ -21,14 +21,13 @@
 
     "grunt": "^1.6.1",
     "grunt-contrib-jshint": "^3.2.0"
- main
- main
+ 
 
     "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs"
   },
   "devDependencies": {
     "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig"
- main
+ 
   }
 }
