@@ -1,5 +1,10 @@
 # Dependency directories
 node_modules/
+# allow specific tracked files under node_modules
+!node_modules/
+!node_modules/.package-lock.json
+!node_modules/@ljharb/
+!node_modules/@ljharb/tsconfig~ee81a13
 
 # Package manager lockfiles
 pnpm-lock.yaml
