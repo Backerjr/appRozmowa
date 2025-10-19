@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { ExercisePlayer } from '../shared/ExercisePlayer.jsx';
 
-export function Lesson({ lessonId }){
+export function Lesson(){
   // Hardcoded exercises for demo
   const exercises = [
     { id:'ex1', type:'mcq', prompt:'Choose the correct article: ___ apple', options:['a','an'], answer:'an', hints_pl:['Przed samogłoską: an.'] },
