@@ -24,6 +24,11 @@ jobs:
 
     - name: Install & lint (use pnpm)
       run: |
+ fix/root-packagejson
         corepack enable
         pnpm install --frozen-lockfile
         pnpm -w exec eslint "**/*.{js,jsx,mjs}" || true
+
+        npm ci
+        npx grunt
+ main

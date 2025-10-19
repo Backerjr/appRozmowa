@@ -4,16 +4,20 @@
   "version": "0.1.0",
   "packageManager": "pnpm@9.0.0",
   "workspaces": [
-    "api",
+    "app",
     "web",
     "proxy"
   ],
   "scripts": {
     "dev": "pnpm -r --parallel dev",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs",
-    "check:repo": "bash scripts/checks.sh"
+    "check:repo": "bash scripts/checks.sh",
+ copilot/vscode1760857565276
+```remove
+    "prepare": "husky"
   },
   "devDependencies": {
+ fix/root-packagejson
   "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
     
   "eslint": "^8.50.0",
@@ -30,5 +34,21 @@
       "pnpm -w exec eslint --fix",
       "git add"
     ]
+
+    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
+    "grunt-contrib-jshint": "^3.2.0",
+    "husky": "^9.0.11"
+
+    "prepare": "husky install"
+  },
+  "devDependencies": {
+    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
+    "grunt": "^1.6.1",
+    "grunt-cli": "^1.5.0",
+    "grunt-contrib-jshint": "^3.2.0", 
+    "husky": "^8.0.0"
+ main
+    "husky": "^9.0.11" main
+ main
   }
 }

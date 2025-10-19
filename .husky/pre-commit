@@ -1,4 +1,15 @@
+ fix/root-packagejson
 #!/usr/bin/env bash
 . "$(dirname "$0")/_/husky.sh"
 
 npx --no-install lint-staged
+
+ copilot/vscode1760857565276
+
+#!/usr/bin/env sh
+. "$(dirname "$0")/_/husky.sh"
+
+echo "Running repo checks..."
+ main
+npm run check:repo
+ main
