@@ -1,9 +1,10 @@
 FROM node:20-alpine AS builder
 WORKDIR /usr/src/web
-COPY package.json package-lock.json* ./
-RUN npm install
+RUN corepack enable && corepack prepare pnpm@9.0.0 --activate
+COPY package.json pnpm-lock.yaml* ./
+RUN pnpm install
 COPY . .
-RUN npm run build
+RUN pnpm run build
 
 FROM nginx:stable-alpine
 COPY --from=builder /usr/src/web/dist /usr/share/nginx/html

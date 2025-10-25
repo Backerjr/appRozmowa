@@ -2,116 +2,134 @@ name: CI / Build & (optional) Deploy
 
 on:
   push:
-	branches: [ main, develop ]
+    branches: [ main, develop ]
   pull_request:
-	branches: [ main ]
+    branches: [ main ]
 
 jobs:
   test:
-	runs-on: ubuntu-latest
-	services:
-	  postgres:
-		image: postgres:15-alpine
-		env:
-		  POSTGRES_PASSWORD: postgres
-		  POSTGRES_DB: approzmowa
-		options: >-
-		  --health-cmd pg_isready
-		  --health-interval 10s
-		  --health-timeout 5s
-		  --health-retries 5
-		ports:
-		  - 5432:5432
-	  redis:
-		image: redis:7-alpine
-		options: >-
-		  --health-cmd "redis-cli ping"
-		  --health-interval 10s
-		  --health-timeout 5s
-		  --health-retries 5
-		ports:
-		  - 6379:6379
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:15-alpine
+        env:
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: approzmowa
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 5432:5432
+      redis:
+        image: redis:7-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
+        ports:
+          - 6379:6379
 
-	steps:
-	  - name: Checkout code
-		uses: actions/checkout@v4
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-	  - name: Setup Node.js
-		uses: actions/setup-node@v4
-		with:
-		  node-version: '20'
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
 
-	  - name: Install pnpm
-		uses: pnpm/action-setup@v4
-		with:
-		  version: 8
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 8
 
-	  - name: Install dependencies
-		run: pnpm install
+      - name: Install dependencies
+        run: pnpm install
 
-	  - name: Copy environment files
-		run: |
-		  cp app/.env.example app/.env || true
-		  cp proxy/.env.example proxy/.env || true
+      - name: Copy environment files
+        run: |
+          cp app/.env.example app/.env || true
+          cp proxy/.env.example proxy/.env || true
 
-	  - name: Run tests
-		run: pnpm -w test --silent || echo "No tests configured yet"
+      - name: Run tests
+        run: pnpm -w test --silent || echo "No tests configured yet"
 
-	  - name: Build all packages (workspace)
-		run: pnpm -r build || echo "No build scripts configured yet"
+      - name: Build all packages (workspace)
+        run: pnpm -r build || echo "No build scripts configured yet"
 
   build-and-push:
-	needs: test
-	runs-on: ubuntu-latest
-	if: github.ref == 'refs/heads/main'
-	steps:
-	  - name: Checkout
-		uses: actions/checkout@v4
+    needs: test
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
 
-	  - name: Set up QEMU
-		uses: docker/setup-qemu-action@v2
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
 
-	  - name: Set up Docker Buildx
-		uses: docker/setup-buildx-action@v2
+      - name: Set up QEMU (for multi-arch builds)
+        uses: docker/setup-qemu-action@v2
 
-	  - name: Login to GHCR
-		if: secrets.GHCR_TOKEN != ''
-		uses: docker/login-action@v2
-		with:
-		  registry: ghcr.io
-		  username: ${{ github.actor }}
-		  password: ${{ secrets.GHCR_TOKEN }}
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-	  - name: Build & push app image (ghcr)
-		uses: docker/build-push-action@v4
-		with:
-		  context: ./app
-		  file: ./app/Dockerfile
-		  push: ${{ secrets.GHCR_TOKEN != '' }}
-		  tags: ghcr.io/${{ github.repository_owner }}/approzmowa-app:latest
+      - name: Login to GHCR (if provided)
+        if: ${{ secrets.GHCR_TOKEN != '' }}
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GHCR_TOKEN }}
 
-	  - name: Build & push web image (ghcr)
-		uses: docker/build-push-action@v4
-		with:
-		  context: ./web
-		  file: ./web/Dockerfile
-		  push: ${{ secrets.GHCR_TOKEN != '' }}
-		  tags: ghcr.io/${{ github.repository_owner }}/approzmowa-web:latest
+      - name: Build & push app image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./app
+          file: ./app/Dockerfile
+          # Push only when GHCR_TOKEN is provided; otherwise builds are kept local to the runner
+          push: ${{ secrets.GHCR_TOKEN != '' }}
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/approzmowa-app:latest
+            ghcr.io/${{ github.repository_owner }}/approzmowa-app:${{ github.sha }}
 
-	  - name: Build & push proxy image (ghcr)
-		uses: docker/build-push-action@v4
-		with:
-		  context: ./proxy
-		  file: ./proxy/Dockerfile
-		  push: ${{ secrets.GHCR_TOKEN != '' }}
-		  tags: ghcr.io/${{ github.repository_owner }}/approzmowa-proxy:latest
+      - name: Build & push web image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./web
+          file: ./web/Dockerfile
+          push: ${{ secrets.GHCR_TOKEN != '' }}
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/approzmowa-web:latest
+            ghcr.io/${{ github.repository_owner }}/approzmowa-web:${{ github.sha }}
 
-	  - name: Optional: trigger Render deploy via API
-		if: secrets.RENDER_SERVICE_ID && secrets.RENDER_API_KEY
-		run: |
-		  echo "Triggering Render deploy (service: ${{ secrets.RENDER_SERVICE_ID }})"
-		  curl -X POST \
-			-H "Accept: application/json" \
-			-H "Authorization: Bearer ${{ secrets.RENDER_API_KEY }}" \
-			"https://api.render.com/v1/services/${{ secrets.RENDER_SERVICE_ID }}/deploys"
+      - name: Build & push proxy image
+        uses: docker/build-push-action@v4
+        with:
+          context: ./proxy
+          file: ./proxy/Dockerfile
+          push: ${{ secrets.GHCR_TOKEN != '' }}
+          platforms: linux/amd64,linux/arm64
+          tags: |
+            ghcr.io/${{ github.repository_owner }}/approzmowa-proxy:latest
+            ghcr.io/${{ github.repository_owner }}/approzmowa-proxy:${{ github.sha }}
+
+      - name: Render Deploy
+        uses: render/action-deploy@v1
+        if: ${{ secrets.RENDER_SERVICE_ID && secrets.RENDER_API_KEY }}
+        with:
+          api_key: ${{ secrets.RENDER_API_KEY }}
+          service_id: ${{ secrets.RENDER_SERVICE_ID }}
+
+      # Optional: if you'd prefer the official Render GitHub Action, you can replace the curl step
+      # with something like:
+      # - name: Render Deploy
+      #   uses: render/action-deploy@v1
+      #   with:
+      #     service_id: ${{ secrets.RENDER_SERVICE_ID }}
+      #     api_key: ${{ secrets.RENDER_API_KEY }}
+
 

@@ -46,20 +46,32 @@ app.get('/status', async (req, res) => {
     status.db = false;
   }
 
-  // Check proxy TCP port reachable
+  // Check proxy by performing a lightweight WebSocket handshake
   try {
-    await new Promise((resolve, reject) => {
-      const net = require('net');
-      const sock = new net.Socket();
-      const onErr = (err) => { sock.destroy(); reject(err); };
-      sock.setTimeout(1500);
-      sock.once('error', onErr);
-      sock.once('timeout', () => onErr(new Error('timeout')));
-      sock.connect(proxyPort, proxyHost, () => { sock.end(); resolve(); });
-    });
-    status.proxy = { host: proxyHost, port: proxyPort, ok: true };
-  } catch (e) {
+    const WebSocket = require('ws');
+    const wsUrl = `ws://${proxyHost}:${proxyPort}/ws/asr`;
     status.proxy = { host: proxyHost, port: proxyPort, ok: false };
+    await new Promise((resolve, reject) => {
+      const ws = new WebSocket(wsUrl, { handshakeTimeout: 1500 });
+      const timer = setTimeout(() => {
+        try { ws.terminate(); } catch (e) { void 0; }
+        reject(new Error('timeout'));
+      }, 1600);
+      ws.once('open', () => {
+  // send a lightweight start control message and wait briefly for a partial/final
+  try { ws.send(JSON.stringify({ type: 'start' })); } catch (e) { void 0; }
+      });
+      ws.once('message', () => {
+        clearTimeout(timer);
+        ws.terminate();
+        status.proxy.ok = true;
+        resolve();
+      });
+  ws.once('error', (err) => { clearTimeout(timer); try { ws.terminate(); } catch (e) { void 0; } reject(err); });
+  ws.once('close', () => { void 0; });
+    });
+  } catch (e) {
+    status.proxy = status.proxy || { host: proxyHost, port: proxyPort, ok: false };
   }
 
   res.json(status);

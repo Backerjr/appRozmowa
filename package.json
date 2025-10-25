@@ -16,21 +16,24 @@
     "prepare": "husky"
   },
   "devDependencies": {
-    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
-    "eslint": "^8.50.0",
     "@babel/core": "^7.28.4",
     "@babel/eslint-parser": "^7.28.4",
     "@babel/preset-react": "^7.22.5",
+    "@ljharb/tsconfig": "file:vendor/@ljharb/tsconfig",
+    "eslint": "^8.50.0",
     "eslint-plugin-react": "^7.33.2",
-    "husky": "^8.0.0",
-    "lint-staged": "^14.0.0",
     "grunt": "^1.6.1",
     "grunt-cli": "^1.5.0",
-    "grunt-contrib-jshint": "^3.2.0"
+    "grunt-contrib-jshint": "^3.2.0",
+    "husky": "^8.0.0",
+    "lint-staged": "^14.0.0"
   },
   "lint-staged": {
     "**/*.{js,jsx,mjs}": [
       "pnpm -w exec eslint --fix"
     ]
+  },
+  "dependencies": {
+    "prop-types": "^15.8.1"
   }
 }
