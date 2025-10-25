@@ -4,7 +4,9 @@
   "version": "0.1.0",
   "type": "module",
   "scripts": {
-    "dev": "node server-dev.js"
+    "dev": "node server-dev.js",
+    "build": "vite build",
+    "preview": "vite preview --port 3000"
   },
   "dependencies": {
     "express": "^4.19.0",

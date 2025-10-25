@@ -33,6 +33,38 @@ async function bootstrapDb(){
 
 app.get('/health', (req,res)=> res.json({ ok:true }));
 
+// Status aggregation endpoint: checks DB connectivity and proxy reachability
+app.get('/status', async (req, res) => {
+  const proxyHost = process.env.PROXY_HOST || 'localhost';
+  const proxyPort = parseInt(process.env.PROXY_PORT || '4100', 10);
+  const status = { api: true };
+  try {
+    // DB check
+    await pool.query('select 1');
+    status.db = true;
+  } catch (e) {
+    status.db = false;
+  }
+
+  // Check proxy TCP port reachable
+  try {
+    await new Promise((resolve, reject) => {
+      const net = require('net');
+      const sock = new net.Socket();
+      const onErr = (err) => { sock.destroy(); reject(err); };
+      sock.setTimeout(1500);
+      sock.once('error', onErr);
+      sock.once('timeout', () => onErr(new Error('timeout')));
+      sock.connect(proxyPort, proxyHost, () => { sock.end(); resolve(); });
+    });
+    status.proxy = { host: proxyHost, port: proxyPort, ok: true };
+  } catch (e) {
+    status.proxy = { host: proxyHost, port: proxyPort, ok: false };
+  }
+
+  res.json(status);
+});
+
 // Dev auth: email/password-less (header based for simplicity)
 app.use((req,res,next)=>{
   const uid = req.header('x-user-id') || '00000000-0000-0000-0000-000000000001';

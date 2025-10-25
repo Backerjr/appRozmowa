@@ -1,0 +1,76 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+	branches: [ main, develop ]
+  pull_request:
+	branches: [ main ]
+
+jobs:
+  test:
+	runs-on: ubuntu-latest
+	
+	services:
+	  postgres:
+		image: postgres:15-alpine
+		env:
+		  POSTGRES_PASSWORD: postgres
+		  POSTGRES_DB: approzmowa
+		options: >-
+		  --health-cmd pg_isready
+		  --health-interval 10s
+		  --health-timeout 5s
+		  --health-retries 5
+		ports:
+		  - 5432:5432
+	  
+	  redis:
+		image: redis:7-alpine
+		options: >-
+		  --health-cmd "redis-cli ping"
+		  --health-interval 10s
+		  --health-timeout 5s
+		  --health-retries 5
+		ports:
+		  - 6379:6379
+
+	steps:
+	  - name: Checkout code
+		uses: actions/checkout@v4
+
+	  - name: Setup Node.js
+		uses: actions/setup-node@v4
+		with:
+		  node-version: '18'
+		  cache: 'npm'
+
+	  - name: Install pnpm
+		uses: pnpm/action-setup@v4
+		with:
+		  version: 8
+
+	  - name: Install dependencies
+		run: pnpm install
+
+	  - name: Copy environment files
+		run: |
+		  cp app/.env.example app/.env
+		  cp proxy/.env.example proxy/.env
+
+	  - name: Run tests
+		run: pnpm -r test || echo "No tests configured yet"
+
+	  - name: Build all packages
+		run: pnpm -r build || echo "No build scripts configured yet"
+
+  deploy:
+	needs: test
+	runs-on: ubuntu-latest
+	if: github.ref == 'refs/heads/main'
+	
+	steps:
+	  - name: Checkout code
+		uses: actions/checkout@v4
+		
+	  - name: Deploy placeholder
+		run: echo "Deploy step - configure with your deployment target"

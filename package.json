@@ -10,6 +10,7 @@
   ],
   "scripts": {
     "dev": "pnpm -r --parallel dev",
+    "start:local": "bash scripts/start-local.sh",
     "postinstall": "node scripts/install-vendored-tsconfig.cjs",
     "check:repo": "bash scripts/checks.sh",
     "prepare": "husky"
