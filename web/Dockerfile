@@ -1,13 +1,12 @@
 FROM node:20-alpine AS builder
 WORKDIR /usr/src/web
 COPY package.json package-lock.json* ./
-RUN npm ci
+RUN npm install
 COPY . .
 RUN npm run build
 
-FROM node:20-alpine
-WORKDIR /usr/src/web
-RUN npm install -g serve
-COPY --from=builder /usr/src/web/dist ./dist
+FROM nginx:stable-alpine
+COPY --from=builder /usr/src/web/dist /usr/share/nginx/html
+COPY ./nginx.conf /etc/nginx/conf.d/default.conf
 EXPOSE 3000
-CMD ["serve", "-s", "dist", "-l", "3000"]
+CMD ["nginx", "-g", "daemon off;"]
