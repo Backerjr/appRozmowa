@@ -4,7 +4,8 @@
   "type": "module",
   "version": "1.0.0",
   "scripts": {
-    "dev": "node --watch src/main.js"
+    "dev": "node --watch src/main.js",
+    "build": "echo 'No build step needed for API'"
   },
   "dependencies": {
     "express": "^4.19.0",
