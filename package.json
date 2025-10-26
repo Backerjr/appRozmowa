@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "pnpm -r --parallel dev",
-    "build": "pnpm -r build && cp -r web/dist ./",
+    "build": "pnpm -r build",
     "check:repo": "bash scripts/checks.sh",
     "prepare": "is-ci || husky"
   },
