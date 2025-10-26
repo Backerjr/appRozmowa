@@ -92,3 +92,4 @@ kill $(cat /tmp/polyglot-dev.pid) && rm /tmp/polyglot-dev.pid
     sed -n '1,200p' package.json || true
     echo '--- end ---'
  main
+# Trigger deployment Sun Oct 26 09:32:05 UTC 2025
