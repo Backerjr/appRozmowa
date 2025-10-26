@@ -7,7 +7,7 @@ export function Status() {
   async function fetchStatus() {
     setLoading(true);
     try {
-      const res = await fetch('/status');
+      const res = await fetch(`${import.meta.env.VITE_API_URL}/status`);
       const json = await res.json();
       setStatus(json);
     } catch (e) {
