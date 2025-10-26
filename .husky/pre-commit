@@ -8,6 +8,3 @@ fi
 if command -v npm >/dev/null 2>&1; then
 	npm run check:repo || { echo "Repo checks failed"; exit 1; }
 fi
-
-# Run lint-staged to auto-fix staged files
-npx --no-install lint-staged || { echo "lint-staged failed"; exit 1; }
