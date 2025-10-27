@@ -10,6 +10,11 @@
     "prepare": "is-ci || husky"
   },
   "devDependencies": {
+    "@babel/core": "^7.28.5",
+    "@babel/eslint-parser": "^7.28.5",
+    "@babel/preset-react": "^7.28.5",
+    "eslint": "^8.50.0",
+    "eslint-plugin-react": "^7.37.5",
     "husky": "^9.0.0",
     "is-ci": "^3.0.0"
   },
