@@ -1,0 +1,7 @@
+exclude:
+  - node_modules
+  - proxy/node_modules
+  - vendor
+  - package-lock.json
+  - pnpm-lock.yaml
+  - README.md
